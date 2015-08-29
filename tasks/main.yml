@@ -1,0 +1,59 @@
+---
+- name: update facts
+  action: setup
+
+- name: apt-get update
+  apt:
+    update_cache: yes
+    cache_valid_time: 300
+  ignore_errors: True
+
+- name: install required packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - runit
+
+- name: download
+  get_url: dest="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" url="http://apache-mirror.rbc.ru/pub/apache/cassandra/{{ cassandra_version }}/apache-cassandra-{{ cassandra_version }}-bin.tar.gz"
+
+- name: checksumming cassandra
+  shell: echo "{{ cassandra_version_sha1 }} /tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" | sha1sum -c -
+
+- name: create all the necessary dirs
+  file: path=/{{ item }} state=directory
+  with_items:
+    - sv/cassandra/log
+    - "{{ cassandra_path_install }}"
+    - "{{ cassandra_path_data }}"
+    - "{{ cassandra_path_logs }}"
+    - "{{ cassandra_path_caches }}"
+
+- name: unpack
+  unarchive: src="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" dest="{{ cassandra_path_install }}" copy=no
+
+- name: remove archive
+  unarchive: src="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" dest=/opt copy=no
+
+- name: update symlink
+  file: src="apache-cassandra-{{ cassandra_version }}" dest="{{ cassandra_path_install }}/cassandra" state=link
+
+- name: create user
+  user: name="{{ cassandra_user }}" comment="cassandra run user" home="{{ cassandra_path_install }}" createhome=no
+
+- name: make all the file RO
+  file: path="{{ cassandra_path_install }}" owner="{{ cassandra_user }}" group='root' mode="a-w" recurse=yes
+
+- name: make some dirs RW
+  file: path="{{ item }}" owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
+  with_items:
+    - "{{ cassandra_path_data }}"
+    - "{{ cassandra_path_logs }}"
+    - "{{ cassandra_path_caches }}"
+
+- name: upload configs and scripts
+  template: src="{{ item.name }}" dest="{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}" owner="{{ item.user if item.user is defined else 'root' }}" group="{{ item.group if item.group is defined else 'root' }}" mode="{{ item.mode if item.mode is defined else '0644' }}"
+  with_items:
+    - { name: "cassandra/conf/cassandra.yaml", mode: "0640", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/logback.xml", mode: "0440", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/cassandra-topology.properties", mode: "0440", user: "{{ cassandra_user }}" }
+    - { name: "cassandra-autoconfig", mode: "0755", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }

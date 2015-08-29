@@ -1,0 +1,17 @@
+---
+cassandra_version: 2.1.9
+cassandra_version_sha1: c7fc9a9c892ec5e8bb5a52c6d15cb89234418e04
+cassandra_user: cassandra
+cassandra_cluster_name: cassandra
+cassandra_cluster_group_name: cassandra
+cassandra_path_install: /opt
+cassandra_path_data: /opt/cassandra-data/data
+cassandra_path_logs: /opt/cassandra-data/logs
+cassandra_path_caches: /opt/cassandra-data/caches
+cassandra_start: cassandra-autoconfig
+cassandra_kill: java
+cassandra_runit: cassandra
+cassandra_node_iface_ext: eth0
+cassandra_node_iface_int: eth0
+cassandra_mem_gb: 0
+cassandra_mem_pc: 50
