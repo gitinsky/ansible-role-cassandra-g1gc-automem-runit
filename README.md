@@ -5,7 +5,7 @@ This role installs Apache Cassandra
 ## The following changes to the standard Cassandra delivery has been made:
 
 * G1GC used
-* RAM amopunt can be provided in GB or in node memory persent
+* RAM amount can be provided in GB or in node memory percent
 * runit supervisor used to run cassandra
 
 ## The following variables could be used to control the install:
