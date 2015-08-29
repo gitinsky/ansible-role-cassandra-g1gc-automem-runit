@@ -31,7 +31,7 @@ cassandra_mem_pc | 50 | RAM available to cassandra in percent. Ignored if cassan
 
 ## Dependencies:
 
-java: https://github.com/gitinsky/ansible-role-java
-runit: https://github.com/gitinsky/ansible-role-runit
+* java: https://github.com/gitinsky/ansible-role-java
+* runit: https://github.com/gitinsky/ansible-role-runit
 
 
