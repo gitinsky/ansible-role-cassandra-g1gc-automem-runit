@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-MEM_USE="${{ cassandra_mem_gb }}"
+MEM_USE="{{ cassandra_mem_gb }}"
 
 if test "$MEM_USE" = "" -o "$MEM_USE" eq 0
   then
