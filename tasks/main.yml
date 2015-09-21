@@ -73,6 +73,6 @@
   fail: >
         msg="Connection failed to {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}:9043. Please
         check '/var/log/cassandra/current' log file and try to run
-        '{{ cassandra_path_install }}/apache-cassandra-{{ cassandra_version }}/bin/cqlsh
+        '{{ cassandra_path_install }}/cassandra/bin/cqlsh
         {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}'"
   when: check.failed is defined and check.failed
