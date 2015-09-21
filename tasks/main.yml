@@ -1,6 +1,9 @@
 ---
-- name: update facts
-  action: setup
+
+- name: check that group {{ cassandra_cluster_group_name }} is not empty
+  fail: msg="Your {{'{{'}} cassandra_cluster_group_name {{ '}}' }} is set to '{{ cassandra_cluster_group_name }}' and has {{ groups[cassandra_cluster_group_name]|count }} hosts, at least 1 is required"
+  when: groups[cassandra_cluster_group_name]|count < 1
+
 
 - name: apt-get update
   apt:
