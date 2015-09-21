@@ -1,10 +1,12 @@
 #!/bin/bash -eux
 
-MEM_USE="{{ cassandra_mem_gb }}"
+MEM_USE="${{ cassandra_mem_gb }}"
 
 if test "$MEM_USE" = "" -o "$MEM_USE" eq 0
   then
-  MEM_USE="$(($(grep '^MemTotal:[[:space:]]' /proc/meminfo|awk '{print $2}')*{{ cassandra_mem_pc }}/100/1024/1024))"
+  MEM_USE="$(($(grep '^MemTotal:[[:space:]]' /proc/meminfo|awk '{print $2}')*{{ cassandra_mem_pc }}/100))"
+else
+  MEM_USE="$(($MEM_USE * 1024 * 1024))"
   fi
 
 export MEM_USE
@@ -39,7 +41,7 @@ JVM_OPTS="$JVM_OPTS -javaagent:$CASSANDRA_HOME/lib/jamm-0.3.0.jar"
 JVM_OPTS="$JVM_OPTS -XX:+CMSClassUnloadingEnabled"
 JVM_OPTS="$JVM_OPTS -XX:+UseThreadPriorities"
 JVM_OPTS="$JVM_OPTS -XX:ThreadPriorityPolicy=42"
-JVM_OPTS="$JVM_OPTS -Xmx${MEM_USE}G -Xms${MEM_USE}G"
+JVM_OPTS="$JVM_OPTS -Xmx${MEM_USE}K -Xms${MEM_USE}K"
 JVM_OPTS="$JVM_OPTS -XX:+HeapDumpOnOutOfMemoryError"
 JVM_OPTS="$JVM_OPTS -Xss256k"
 JVM_OPTS="$JVM_OPTS -XX:StringTableSize=1000003"
