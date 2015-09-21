@@ -60,3 +60,19 @@
     - { name: "cassandra/conf/logback.xml", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/cassandra-topology.properties", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra-autoconfig", mode: "0755", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
+
+- name: wait for port availability
+  wait_for: host={{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }} port=9042 delay=5 timeout=60
+  register: check
+  ignore_errors: yes
+
+- name: print check status
+  debug: var=check
+
+- name: fail if conection failed
+  fail: >
+        msg="Connection failed to {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}:9043. Please
+        check '/var/log/cassandra/current' log file and try to run
+        '{{ cassandra_path_install }}/apache-cassandra-{{ cassandra_version }}/bin/cqlsh
+        {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}'"
+  when: check.failed is defined and check.failed
