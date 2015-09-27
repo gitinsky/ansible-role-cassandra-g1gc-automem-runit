@@ -11,7 +11,9 @@ permissions_validity_in_ms: 2000
 partitioner: org.apache.cassandra.dht.Murmur3Partitioner
 
 data_file_directories:
-     - {{ cassandra_path_data }}
+{% for path_data in cassandra_path_data %}
+     - {{ path_data }}
+{% endfor %}
 
 commitlog_directory: {{ cassandra_path_logs }}
 disk_failure_policy: stop

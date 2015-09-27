@@ -5,9 +5,9 @@ cassandra_user: cassandra
 cassandra_cluster_name: cassandra
 cassandra_cluster_group_name: cassandra
 cassandra_path_install: /opt
-cassandra_path_data: /opt/cassandra-data/data
-cassandra_path_logs: /opt/cassandra-data/logs
-cassandra_path_caches: /opt/cassandra-data/caches
+cassandra_path_data: ["/var/lib/cassandra/data"]
+cassandra_path_logs: /var/lib/cassandra/logs
+cassandra_path_caches: /var/lib/cassandra/caches
 cassandra_start: cassandra-autoconfig
 cassandra_kill: java
 cassandra_runit: cassandra

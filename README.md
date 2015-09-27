@@ -18,7 +18,7 @@ cassandra_user | cassandra | user the cassandra will be running with
 cassandra_cluster_name | cassandra | cluster name
 cassandra_cluster_group_name | cassandra | the name on the inventory group contains the cluster hosts. used to get seeds addresses
 cassandra_path_install | /opt | path the cassanda will be installed
-cassandra_path_data | /opt/cassandra-data/data | path the cassanda will store data
+cassandra_path_data | ["/opt/cassandra-data/data"] | array of paths the cassanda will store data in
 cassandra_path_logs | /opt/cassandra-data/logs | path the cassanda will store logs
 cassandra_path_caches | /opt/cassandra-data/caches | path the cassanda will store caches
 cassandra_start | cassandra-autoconfig | cassandra start script
