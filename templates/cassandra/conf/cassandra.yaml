@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 cluster_name: '{{ cassandra_cluster_name }}'
 num_tokens: 256
 hinted_handoff_enabled: true
@@ -32,7 +33,7 @@ commitlog_segment_size_in_mb: 32
 seed_provider:
     - class_name: org.apache.cassandra.locator.SimpleSeedProvider
       parameters:
-          - seeds: "{% for host in groups[cassandra_cluster_group_name] %} {{ hostvars[host]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}, {% endfor %}"
+          - seeds: "{% for host in groups[cassandra_cluster_group_name] %} {{ hostvars[host]['ansible_' + hostvars[item]['cassandra_node_iface_int']]['ipv4']['address'] }}, {% endfor %}"
 
 concurrent_reads: 32
 concurrent_writes: 32
@@ -44,14 +45,14 @@ trickle_fsync: false
 trickle_fsync_interval_in_kb: 10240
 storage_port: 7000
 ssl_storage_port: 7001
-listen_address: {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}
+listen_address: {{ hostvars[inventory_hostname]['ansible_' + hostvars[item]['cassandra_node_iface_int']]['ipv4']['address'] }}
 #broadcast_address: {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_int]['ipv4']['address'] }}
 # listen_interface: {{ 'ansible_' + cassandra_node_iface_int }}
 start_native_transport: true
 native_transport_port: 9042
 start_rpc: true
-rpc_address: {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_ext]['ipv4']['address'] }}
-#broadcast_rpc_address: {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_ext]['ipv4']['address'] }}
+rpc_address: {{ hostvars[inventory_hostname]['ansible_' + hostvars[item]['cassandra_node_iface_ext']]['ipv4']['address'] }}
+#broadcast_rpc_address: {{ hostvars[inventory_hostname]['ansible_' + hostvars[item]['cassandra_node_iface_ext']]['ipv4']['address'] }}
 rpc_port: 9160
 rpc_keepalive: true
 rpc_server_type: sync
