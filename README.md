@@ -12,8 +12,8 @@ This role installs Apache Cassandra
 
 variable name | default value | comment
 ------------- | ------------- | -------
-cassandra_version | 2.1.9 | version to be installed
-cassandra_version_sha1 | c7fc9a9c892ec5e8bb5a52c6d15cb89234418e04 | SHA1 checksum to check the downloaded file
+cassandra_version | 2.1.9 | version to be installed, could also be ```latest``` for Latest release or ```stable``` for Stable release
+cassandra_version_sha1 | c7fc9a9c892ec5e8bb5a52c6d15cb89234418e04 | SHA1 checksum to check the downloaded file, autodetected if version is set to ```latest``` or ```stable```
 cassandra_user | cassandra | user the cassandra will be running with
 cassandra_cluster_name | cassandra | cluster name
 cassandra_cluster_group_name | cassandra | the name on the inventory group contains the cluster hosts. used to get seeds addresses
