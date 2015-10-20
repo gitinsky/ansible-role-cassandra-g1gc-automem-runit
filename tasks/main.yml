@@ -71,7 +71,8 @@
   user: name="{{ cassandra_user }}" comment="cassandra run user" home="{{ cassandra_path_install }}" createhome=no
 
 - name: make all the file RO
-  file: path="{{ cassandra_path_install }}" owner="{{ cassandra_user }}" group='root' mode="a-w" recurse=yes
+  file: path="{{ cassandra_path_install }}/apache-cassandra-{{ cassandra_version }}" owner="{{ cassandra_user }}" group='root' mode="a-w" recurse=yes
+  tags: test
 
 - name: make some dirs RW
   file: path="{{ item }}" owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
