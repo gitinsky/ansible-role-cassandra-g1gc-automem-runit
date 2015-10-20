@@ -24,10 +24,11 @@ cassandra_path_caches | /opt/cassandra-data/caches | path the cassanda will stor
 cassandra_start | cassandra-autoconfig | cassandra start script
 cassandra_kill | java | program to be killed to restart cassandra
 cassandra_runit | cassandra | runit service name
-cassandra_node_iface_ext | eth0 | external network interface name
-cassandra_node_iface_int | eth0 | internal network interface name
+cassandra_node_iface_ext | eth0 | external network interface name (rpc_address, client connection)
+cassandra_node_iface_int | eth0 | internal network interface name (listen_address, node communication)
 cassandra_mem_gb | 0 | RAM available to cassandra in GB
 cassandra_mem_pc | 50 | RAM available to cassandra in percent. Ignored if cassandra_mem_gb provided
+cassandra_ommit_bin_link | false | if false, a symlink is created at /usr/local/bin/cqlsh
 
 ## Dependencies:
 
