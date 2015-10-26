@@ -111,3 +111,13 @@
         '{{ cassandra_path_install }}/cassandra/bin/cqlsh
         {{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_ext]['ipv4']['address'] }}'"
   when: check.failed is defined and check.failed
+
+- name: create /usr/share/datastax-agent/bin
+  file: dest=/usr/share/datastax-agent/bin group=cassandra owner=cassandra state=directory
+  
+- name: put stop-start for datastax
+  template: dest=/usr/share/datastax-agent/bin/{{ item }} src=datastax-agent/{{ item }} group=cassandra owner=cassandra mode=755
+  with_items:
+      - start-cassandra
+      - stop-cassandra
+
