@@ -29,10 +29,9 @@ cassandra_node_iface_int | eth0 | internal network interface name (listen_addres
 cassandra_mem_gb | 0 | RAM available to cassandra in GB
 cassandra_mem_pc | 50 | RAM available to cassandra in percent. Ignored if cassandra_mem_gb provided
 cassandra_ommit_bin_link | false | if false, a symlink is created at /usr/local/bin/cqlsh
+cassandra_force_upgrade | false| if false and /opt/cassandra exists it won't be replaced
 
 ## Dependencies:
 
 * java: https://github.com/gitinsky/ansible-role-java
 * runit: https://github.com/gitinsky/ansible-role-runit
-
-

@@ -1,0 +1,65 @@
+- name: apt-get update
+  apt:
+    update_cache: yes
+    cache_valid_time: 300
+  ignore_errors: True
+
+- name: install required packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - runit
+    - curl
+
+- name: find out version of the latest release
+  shell: curl -s http://cassandra.apache.org/|grep "{{ 'Latest' if cassandra_version == "latest" else 'Stable' }} release" |sed -E 's/\s+{{ 'Latest' if cassandra_version == 'latest' else 'Stable' }}\srelease\s<b>([0-9.]+)<\/b>.*/\1/'
+  register: result
+  when: cassandra_version in ["latest", "stable"]
+  tags: always
+
+- name: get checksum
+  uri: url=http://www.apache.org/dist/cassandra/{{ result.stdout }}/apache-cassandra-{{ result.stdout }}-bin.tar.gz.sha1 return_content=yes
+  register: checksum
+  when: cassandra_version in ["latest", "stable"]
+  tags: always
+
+- name: define cassandra version if it is set to latest, also set checksum
+  set_fact:
+      cassandra_version: "{{ result.stdout }}"
+      cassandra_version_sha1: "{{ checksum.content }}"
+  when: cassandra_version in ["latest", "stable"]
+  tags: always
+
+- name: download
+  get_url: dest="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" url="http://apache-mirror.rbc.ru/pub/apache/cassandra/{{ cassandra_version }}/apache-cassandra-{{ cassandra_version }}-bin.tar.gz"
+
+- name: checksumming cassandra
+  shell: echo "{{ cassandra_version_sha1 }} /tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" | sha1sum -c -
+  when: cassandra_version not in ["latest", "stable"]
+
+- name: create all the necessary dirs
+  file: path=/{{ item }} state=directory
+  with_items:
+    - sv/cassandra/log
+    - "{{ cassandra_path_install }}"
+    - "{{ cassandra_path_logs }}"
+    - "{{ cassandra_path_caches }}"
+
+- name: create all the necessary dirs
+  file: path=/{{ item }} state=directory
+  with_items: cassandra_path_data
+
+- name: unpack
+  unarchive: src="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" dest="{{ cassandra_path_install }}" copy=no
+
+- name: remove archive
+  file: path="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" state=absent
+
+- name: remove old install
+  file: path="{{ cassandra_path_install }}/cassandra" state=absent
+
+- name: update symlink
+  file: src="apache-cassandra-{{ cassandra_version }}" dest="{{ cassandra_path_install }}/cassandra" state=link
+
+- name: put symlink for cqlsh in /usr/local/bin
+  file: src="{{ cassandra_path_install }}/cassandra/bin/cqlsh" dest="/usr/local/bin/cqlsh" state=link
+  when: not cassandra_ommit_bin_link
