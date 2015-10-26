@@ -16,3 +16,4 @@ cassandra_node_iface_int: eth0
 cassandra_mem_gb: 0
 cassandra_mem_pc: 50
 cassandra_ommit_bin_link: no
+cassandra_force_upgrade: no
