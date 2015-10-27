@@ -1,6 +1,6 @@
 ---
 dependencies:
-  # - { role: java }
+  - { role: java }
   - { role: runit, runit_service_name: "{{ cassandra_runit }}",  runit_service_user: "{{ cassandra_user }}", runit_service_command: "{{ cassandra_path_install }}/{{ cassandra_start }}", runit_service_params: "", runit_service_kill: "{{ cassandra_kill }}" }
 
   
