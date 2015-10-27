@@ -1,1 +1,2 @@
-killall java
+# sv term cassandra
+sv stop cassandra
