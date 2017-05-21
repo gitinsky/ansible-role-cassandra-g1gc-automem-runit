@@ -16,6 +16,7 @@ data_file_directories:
 {% endfor %}
 
 commitlog_directory: {{ cassandra_path_logs }}
+hints_directory: {{ cassandra_path_hints }}
 disk_failure_policy: stop
 commit_failure_policy: stop
 key_cache_size_in_mb:

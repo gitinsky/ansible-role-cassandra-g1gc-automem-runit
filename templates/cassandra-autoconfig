@@ -2,7 +2,7 @@
 
 MEM_USE="{{ cassandra_mem_gb }}"
 
-if test "$MEM_USE" = "" -o "$MEM_USE" eq 0
+if /bin/test "$MEM_USE" = "" -o "$MEM_USE" -eq 0
   then
   MEM_USE="$(($(grep '^MemTotal:[[:space:]]' /proc/meminfo|awk '{print $2}')*{{ cassandra_mem_pc }}/100))"
 else
