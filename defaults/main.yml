@@ -1,6 +1,6 @@
 ---
-cassandra_version: 2.1.10
-cassandra_version_sha1: bbeb7f6c28fdf61dfac1fe7f45c95234946b3c8a
+cassandra_version: 3.0.13
+cassandra_version_sha1: 54776a43cafdd993372a416fadfcb1025cbe989e
 cassandra_user: cassandra
 cassandra_cluster_name: cassandra
 cassandra_cluster_group_name: cassandra
@@ -11,6 +11,7 @@ cassandra_path_caches: /var/lib/cassandra/caches
 cassandra_start: cassandra-autoconfig
 cassandra_kill: java
 cassandra_runit: cassandra
+cassandra_runit_enabled: False
 cassandra_node_iface_ext: eth0
 cassandra_node_iface_int: eth0
 cassandra_mem_gb: 0
