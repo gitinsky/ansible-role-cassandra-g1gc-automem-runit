@@ -3,12 +3,14 @@
     update_cache: yes
     cache_valid_time: 300
   ignore_errors: True
+  when: ansible_os_family  == "Debian"
 
 - name: install required packages
   apt: name={{ item }} state=latest
   with_items:
     - runit
     - curl
+  when: ansible_os_family  == "Debian"
 
 - name: download
   get_url: dest="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" url="http://apache-mirror.rbc.ru/pub/apache/cassandra/{{ cassandra_version }}/apache-cassandra-{{ cassandra_version }}-bin.tar.gz"
