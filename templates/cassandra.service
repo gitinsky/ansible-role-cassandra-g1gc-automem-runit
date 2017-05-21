@@ -1,0 +1,13 @@
+[Unit]
+Description=Cassandra Service
+Documentation=https://cassandra.apache.org
+
+[Service]
+User={{ cassandra_user }}
+Group={{ cassandra_user }}
+ExecStart={{ cassandra_path_install }}/{{ cassandra_start }}
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
