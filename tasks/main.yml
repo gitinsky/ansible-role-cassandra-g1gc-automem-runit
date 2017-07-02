@@ -37,7 +37,23 @@
     - { name: "cassandra/conf/logback.xml", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/cassandra-topology.properties", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra-autoconfig", mode: "0755", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
+  when: "ansible_os_family != 'Elbrus'"
+
+- name: upload configs and scripts
+  template: src="{{ item.name }}" dest="{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}" owner="{{ item.user if item.user is defined else 'root' }}" group="{{ item.group if item.group is defined else 'root' }}"
+  with_items:
+    - { name: "cassandra/conf/cassandra.yaml", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/logback.xml", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/cassandra-topology.properties", user: "{{ cassandra_user }}" }
+    - { name: "cassandra-autoconfig", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
+  when: "ansible_os_family == 'Elbrus'"
   
+- name: upload configs and scripts
+  shell: chmod 0755 "{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}"
+  with_items:
+    - { name: "cassandra-autoconfig", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
+  when: "ansible_os_family == 'Elbrus'"
+
 - name: put a systemctl unit file
   template: src=cassandra.service dest=/etc/systemd/system/cassandra.service
   when: "(not cassandra_runit_enabled) and ((ansible_distribution == 'Debian' and ansible_distribution_major_version == '8') or (ansible_distribution == 'Ubuntu' and (ansible_distribution_version|version_compare(14.04, '>'))) or (ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'))"
