@@ -1,6 +1,6 @@
 ---
-cassandra_version: 3.0.13
-cassandra_version_sha1: 54776a43cafdd993372a416fadfcb1025cbe989e
+cassandra_version: 3.0.14
+cassandra_version_sha1: 5ba7adf6477a42c0fedaca886560ee8951f10358
 cassandra_user: cassandra
 cassandra_cluster_name: cassandra
 cassandra_cluster_group_name: cassandra
