@@ -6,6 +6,7 @@ Documentation=https://cassandra.apache.org
 User={{ cassandra_user }}
 Group={{ cassandra_user }}
 ExecStart={{ cassandra_path_install }}/{{ cassandra_start }}
+LimitNOFILE=65535
 StandardOutput=journal
 StandardError=journal
 
