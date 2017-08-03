@@ -6,9 +6,11 @@ Documentation=https://cassandra.apache.org
 User={{ cassandra_user }}
 Group={{ cassandra_user }}
 ExecStart={{ cassandra_path_install }}/{{ cassandra_start }}
-LimitNOFILE=65535
+LimitNOFILE={{ cassandra_limit_nofile }}
 StandardOutput=journal
 StandardError=journal
+Restart=always
+RestartSec=20
 
 [Install]
 WantedBy=multi-user.target
