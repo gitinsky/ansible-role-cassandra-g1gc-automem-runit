@@ -30,6 +30,18 @@
 - include: install.yml
   when: not link.stat.exists or cassandra_force_upgrade
 
+- name: create dirs
+  file: path="{{ item }}" state=directory owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
+  with_items:
+    - "{{ cassandra_path_logs }}"
+    - "{{ cassandra_path_hints }}"
+    - "{{ cassandra_path_caches }}"
+    - "{{ cassandra_path_cdc_raw }}"
+
+- name: create dirs
+  file: path="{{ item }}" state=directory owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
+  with_items: "{{ cassandra_path_data }}"
+
 - name: upload configs and scripts
   template: src="{{ item.name }}" dest="{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}" owner="{{ item.user if item.user is defined else 'root' }}" group="{{ item.group if item.group is defined else 'root' }}" mode="{{ item.mode if item.mode is defined else '0644' }}"
   with_items:

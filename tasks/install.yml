@@ -24,13 +24,6 @@
   with_items:
     - sv/cassandra/log
     - "{{ cassandra_path_install }}"
-    - "{{ cassandra_path_logs }}"
-    - "{{ cassandra_path_hints }}"
-    - "{{ cassandra_path_caches }}"
-
-- name: create all the necessary dirs
-  file: path=/{{ item }} state=directory
-  with_items: "{{ cassandra_path_data }}"
 
 - name: unpack
   unarchive: src="/tmp/apache-cassandra-{{ cassandra_version }}-bin.tar.gz" dest="{{ cassandra_path_install }}" copy=no
@@ -54,14 +47,3 @@
 - name: make all the file RO
   file: path="{{ cassandra_path_install }}/apache-cassandra-{{ cassandra_version }}" owner="{{ cassandra_user }}" group='root' mode="a-w" recurse=yes
   tags: test
-
-- name: make some dirs RW
-  file: path="{{ item }}" owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
-  with_items:
-    - "{{ cassandra_path_logs }}"
-    - "{{ cassandra_path_hints }}"
-    - "{{ cassandra_path_caches }}"
-
-- name: make some dirs RW
-  file: path="{{ item }}" owner="{{ cassandra_user }}" group='root' mode="u+w" recurse=yes
-  with_items: "{{ cassandra_path_data }}"
