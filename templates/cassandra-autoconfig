@@ -12,7 +12,7 @@ else
 export MEM_USE
 export LOCAL_ADDR="{{ hostvars[inventory_hostname]['ansible_' + cassandra_node_iface_ext]['ipv4']['address'] }}"
 
-JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+JAVA_HOME={{ cassandra_java_home }}
 
 CASSANDRA_HOME="{{ cassandra_path_install }}/cassandra"
 CASSANDRA_CONF="$CASSANDRA_HOME/conf"
@@ -55,5 +55,5 @@ JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.rmi.port=7199"
 JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.ssl=false"
 JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
 
-exec /usr/bin/java $JVM_OPTS $cassandra_parms -cp "$CLASSPATH" org.apache.cassandra.service.CassandraDaemon
+exec $JAVA_HOME/bin/java $JVM_OPTS $cassandra_parms -cp "$CLASSPATH" org.apache.cassandra.service.CassandraDaemon
 
