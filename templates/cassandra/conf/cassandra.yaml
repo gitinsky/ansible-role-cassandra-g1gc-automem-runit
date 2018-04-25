@@ -16,6 +16,9 @@ data_file_directories:
 {% endfor %}
 
 commitlog_directory: {{ cassandra_path_logs }}
+{% if (cassandra_version|version_compare("3.1.0", '>')) %}
+cdc_raw_directory: {{ cassandra_path_cdc_raw }}
+{% endif %}
 hints_directory: {{ cassandra_path_hints }}
 disk_failure_policy: stop
 commit_failure_policy: stop
@@ -33,7 +36,7 @@ commitlog_segment_size_in_mb: 32
 seed_provider:
     - class_name: org.apache.cassandra.locator.SimpleSeedProvider
       parameters:
-          - seeds: "{% for host in groups[cassandra_cluster_group_name] %} {{ hostvars[host]['ansible_' + hostvars[host]['cassandra_node_iface_int']]['ipv4']['address'] }}, {% endfor %}"
+          - seeds: "{% for host in groups[cassandra_seeds_group_name] %} {{ hostvars[host]['ansible_' + hostvars[host]['cassandra_node_iface_int']]['ipv4']['address'] }}, {% endfor %}"
 
 concurrent_reads: 32
 concurrent_writes: 32
