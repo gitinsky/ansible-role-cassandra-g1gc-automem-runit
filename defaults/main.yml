@@ -1,7 +1,7 @@
 ---
 cassandra_limit_nofile: 65535
-cassandra_version: 3.0.14
-cassandra_version_sha1: 5ba7adf6477a42c0fedaca886560ee8951f10358
+cassandra_version: 3.11.2
+cassandra_version_sha1: f52a65ffddeff553f2ac3f8f3fd3dd74317fe793
 cassandra_user: cassandra
 cassandra_cluster_name: cassandra
 cassandra_cluster_group_name: cassandra
