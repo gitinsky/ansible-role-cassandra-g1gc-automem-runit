@@ -5,11 +5,13 @@ cassandra_version_sha1: f52a65ffddeff553f2ac3f8f3fd3dd74317fe793
 cassandra_user: cassandra
 cassandra_cluster_name: cassandra
 cassandra_cluster_group_name: cassandra
+cassandra_seeds_group_name: cassandra_seeds
 cassandra_path_install: /opt
 cassandra_path_data: ["/var/lib/cassandra/data"]
 cassandra_path_logs: /var/lib/cassandra/logs
 cassandra_path_hints: /var/lib/cassandra/hints
 cassandra_path_caches: /var/lib/cassandra/caches
+cassandra_path_cdc_raw: /var/lib/cassandra/cdc_raw
 cassandra_start: cassandra-autoconfig
 cassandra_kill: java
 cassandra_runit: cassandra
@@ -20,3 +22,4 @@ cassandra_mem_gb: 0
 cassandra_mem_pc: 50
 cassandra_ommit_bin_link: no
 cassandra_force_upgrade: no
+cassandra_java_home: /usr/lib/jvm/java-8-oracle/
