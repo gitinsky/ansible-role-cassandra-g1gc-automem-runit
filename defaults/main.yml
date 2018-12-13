@@ -46,5 +46,5 @@ cassandra_compaction_throughput_mb_per_sec: 16
 cassandra_read_request_timeout_in_ms: 5000
 cassandra_write_request_timeout_in_ms: 2000
 cassandra_counter_write_request_timeout_in_ms: 5000
-cassandra_cas_contention_timeout_in_ms: 50000
+cassandra_cas_contention_timeout_in_ms: 5000
 cassandra_streaming_socket_timeout_in_ms: ''
