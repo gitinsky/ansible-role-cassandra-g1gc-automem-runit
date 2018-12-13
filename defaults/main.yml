@@ -23,13 +23,12 @@ cassandra_mem_pc: 50
 cassandra_ommit_bin_link: no
 cassandra_force_upgrade: no
 cassandra_java_home: /usr/lib/jvm/java-8-oracle/
-cassandra_hinted_handoff_throttle_in_kb: 2048 1024
-cassandra_max_hints_delivery_threads: 128 2
-cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_batchlog_replay_throttle_in_kb: 2048 1024
-cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_disk_failure_policy: best_effort stop
-cassandra_cassandra_cassandra_cassandra_cassandra_commit_failure_policy: stop_commit stop
-cassandra_cassandra_cassandra_cassandra_key_cache_size_in_mb: 64 -
-cassandra_cassandra_cassandra_row_cache_size_in_mb: 0 
+cassandra_hinted_handoff_throttle_in_kb: 10124
+cassandra_max_hints_delivery_threads: 2
+cassandra_batchlog_replay_throttle_in_kb: 1024
+cassandra_disk_failure_policy: stop
+cassandra_commit_failure_policy: stop
+cassandra_row_cache_size_in_mb: 0 
 cassandra_cassandra_row_cache_save_period: 0
 cassandra_counter_cache_size_in_mb: ''
 cassandra_commitlog_total_space_in_mb: ''
