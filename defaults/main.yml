@@ -23,3 +23,28 @@ cassandra_mem_pc: 50
 cassandra_ommit_bin_link: no
 cassandra_force_upgrade: no
 cassandra_java_home: /usr/lib/jvm/java-8-oracle/
+cassandra_hinted_handoff_throttle_in_kb: 2048 1024
+cassandra_max_hints_delivery_threads: 128 2
+cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_batchlog_replay_throttle_in_kb: 2048 1024
+cassandra_cassandra_cassandra_cassandra_cassandra_cassandra_disk_failure_policy: best_effort stop
+cassandra_cassandra_cassandra_cassandra_cassandra_commit_failure_policy: stop_commit stop
+cassandra_cassandra_cassandra_cassandra_key_cache_size_in_mb: 64 -
+cassandra_cassandra_cassandra_row_cache_size_in_mb: 0 
+cassandra_cassandra_row_cache_save_period: 0
+cassandra_counter_cache_size_in_mb: ''
+cassandra_commitlog_total_space_in_mb: ''
+cassandra_concurrent_reads: 32
+cassandra_concurrent_writes: 32
+cassandra_concurrent_counter_writes: 32
+cassandra_memtable_allocation_type: heap_buffers
+cassandra_file_cache_size_in_mb: ''
+cassandra_memtable_flush_writers: ''
+cassandra_index_summary_capacity_in_mb: ''
+cassandra_thrift_framed_transport_size_in_mb: 15
+cassandra_column_index_size_in_kb: 64
+cassandra_compaction_throughput_mb_per_sec: 16
+cassandra_read_request_timeout_in_ms: 5000
+cassandra_write_request_timeout_in_ms: 2000
+cassandra_counter_write_request_timeout_in_ms: 5000
+cassandra_cas_contention_timeout_in_ms: 50000
+cassandra_streaming_socket_timeout_in_ms: ''
