@@ -29,7 +29,7 @@ cassandra_batchlog_replay_throttle_in_kb: 1024
 cassandra_disk_failure_policy: stop
 cassandra_commit_failure_policy: stop
 cassandra_row_cache_size_in_mb: 0 
-cassandra_cassandra_row_cache_save_period: 0
+cassandra_row_cache_save_period: 0
 cassandra_counter_cache_size_in_mb: ''
 cassandra_commitlog_total_space_in_mb: ''
 cassandra_concurrent_reads: 32
