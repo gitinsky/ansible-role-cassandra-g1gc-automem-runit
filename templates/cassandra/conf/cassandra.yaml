@@ -22,7 +22,9 @@ cdc_raw_directory: {{ cassandra_path_cdc_raw }}
 hints_directory: {{ cassandra_path_hints }}
 disk_failure_policy: {{ cassandra_disk_failure_policy }}    
 commit_failure_policy: {{ cassandra_commit_failure_policy }}
+{% if cassandra_key_cache_size_in_mb is defined %}
 key_cache_size_in_mb: {{ cassandra_key_cache_size_in_mb }}
+{% endif %}
 key_cache_save_period: 14400
 row_cache_size_in_mb: {{ cassandra_row_cache_size_in_mb }}
 row_cache_save_period: {{ cassandra_row_cache_save_period }}
