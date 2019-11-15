@@ -1,4 +1,3 @@
 ---
 dependencies:
   - { role: java, tags: ['java'], when: "ansible_os_family == 'Debian'" }
-  - { role: runit }
