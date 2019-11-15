@@ -16,7 +16,7 @@ data_file_directories:
 {% endfor %}
 
 commitlog_directory: {{ cassandra_path_logs }}
-{% if (cassandra_version|version_compare("3.1.0", '>')) %}
+{% if (cassandra_version|version("3.1.0", '>')) %}
 cdc_raw_directory: {{ cassandra_path_cdc_raw }}
 {% endif %}
 hints_directory: {{ cassandra_path_hints }}
