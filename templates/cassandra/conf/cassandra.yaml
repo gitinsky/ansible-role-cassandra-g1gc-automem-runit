@@ -44,10 +44,16 @@ concurrent_reads: {{ cassandra_concurrent_reads }}
 concurrent_writes: {{ cassandra_concurrent_writes }}
 concurrent_counter_writes: {{ cassandra_concurrent_counter_writes }}
 memtable_allocation_type: {{ cassandra_memtable_allocation_type }}
+{% if cassandra_file_cache_size_in_mb is defined %}
 file_cache_size_in_mb: {{ cassandra_file_cache_size_in_mb }}
+{% endif %}
+{% if cassandra_memtable_flush_writers is defined %}
 memtable_flush_writers: {{ cassandra_memtable_flush_writers }}
+{% endif %}
 
+{% if cassandra_index_summary_capacity_in_mb is defined %}
 index_summary_capacity_in_mb: {{ cassandra_index_summary_capacity_in_mb }}
+{% endif %}
 index_summary_resize_interval_in_minutes: 60
 trickle_fsync: false
 trickle_fsync_interval_in_kb: 10240
@@ -81,7 +87,9 @@ counter_write_request_timeout_in_ms: {{ cassandra_counter_write_request_timeout_
 cas_contention_timeout_in_ms: {{ cassandra_cas_contention_timeout_in_ms }}
 truncate_request_timeout_in_ms: 60000
 request_timeout_in_ms: 10000
+{% if cassandra_streaming_socket_timeout_in_ms is defined %}
 streaming_socket_timeout_in_ms: {{ cassandra_streaming_socket_timeout_in_ms }}
+{% endif %}
 cross_node_timeout: false
 endpoint_snitch: SimpleSnitch
 dynamic_snitch_update_interval_in_ms: 100 
