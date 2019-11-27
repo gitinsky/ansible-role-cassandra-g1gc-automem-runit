@@ -46,6 +46,7 @@
   template: src="{{ item.name }}" dest="{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}" owner="{{ item.user if item.user is defined else 'root' }}" group="{{ item.group if item.group is defined else 'root' }}" mode="{{ item.mode if item.mode is defined else '0644' }}"
   with_items:
     - { name: "cassandra/conf/cassandra.yaml", mode: "0640", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/jmx_prometheus_javaagent.yaml", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/logback.xml", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/cassandra-topology.properties", mode: "0440", user: "{{ cassandra_user }}" }
     - { name: "cassandra-autoconfig", mode: "0755", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
