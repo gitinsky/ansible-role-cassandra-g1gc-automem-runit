@@ -55,6 +55,7 @@
   template: src="{{ item.name }}" dest="{{ item.dest if item.dest is defined else cassandra_path_install + '/' + item.name }}" owner="{{ item.user if item.user is defined else 'root' }}" group="{{ item.group if item.group is defined else 'root' }}"
   with_items:
     - { name: "cassandra/conf/cassandra.yaml", user: "{{ cassandra_user }}" }
+    - { name: "cassandra/conf/jmx_prometheus_javaagent.yaml", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/logback.xml", user: "{{ cassandra_user }}" }
     - { name: "cassandra/conf/cassandra-topology.properties", user: "{{ cassandra_user }}" }
     - { name: "cassandra-autoconfig", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
@@ -65,6 +66,11 @@
   with_items:
     - { name: "cassandra-autoconfig", dst: "{{ cassandra_path_install }}/{{ cassandra_start }}" }
   when: "ansible_os_family == 'Elbrus'"
+
+- name: download the Prom JMX exporter
+  get_url:
+    url: "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar"
+    dest: "{{ cassandra_path_install + '/cassandra/lib/jmx_prometheus_javaagent-0.12.0.jar' }}"
 
 - name: put a systemctl unit file
   template: src=cassandra.service dest=/etc/systemd/system/cassandra.service
